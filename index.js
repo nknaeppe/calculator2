@@ -1,6 +1,4 @@
-let num1 = 0;
-let num2 = 0;
-let operator = "";
+
 
 const buttons = document.querySelectorAll(".button");
 const display = document.querySelector(".display")
@@ -48,10 +46,50 @@ function operate(x , y, operator) {
     }   
 }
 
+function del() {
+    const content = display.textContent;   
+    display.textContent = content.slice(0, content.length - 1);
+}
+
+function clear() {
+    display.textContent = "";
+}
+function splitInput(inputText) {
+    
+    let operators = ["+", "-", "/", "*"];
+
+    for (let i = 0; i < Array.length; i++){
+        let operatorPos = inputText.indexOf(operators[i]);
+        if (operatorPos >= 0) {
+            let output = [inputText.substring(0, operatorPos), inputText.substring(operatorPos + 1, inputText.length), operators[i]];
+            return output;
+        }
+    }
+}
+
+
+
+
 
 buttons.forEach( (button) => {
     button.addEventListener("click", () => {
-        display.textContent += button.textContent;
+        let buttonText = button.textContent;
+
+        if (buttonText === "Clear") {
+            display.textContent =""
+        }
+        else if (buttonText === "Del") {  
+            del();
+        }
+        else if (buttonText === "=") {
+
+            let output = splitInput(display.textContent.trim()); 
+            console.log(typeof(output))
+            display.textContent = output[0];
+        }
+        else {
+            display.textContent +=buttonText;           
+        }
     })
-    } )
+})
 
