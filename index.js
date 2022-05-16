@@ -1,6 +1,7 @@
 const buttons = document.querySelectorAll(".button");
 const display = document.querySelector(".display");
 let gaveOutput = false;
+let floatinput = false;
 function del() {
   const content = display.textContent;
   display.textContent = content.slice(0, content.length - 1);
@@ -101,12 +102,14 @@ buttons.forEach((button) => {
       const cleanContent = display.textContent.trim();
       if (
         cleanContent[cleanContent.length - 1] === "." ||
+        floatinput === true ||
         ["+", "*", "-", "/"].includes(
           cleanContent[cleanContent.length - 1] || cleanContent === ""
         )
       ) {
       } else {
         display.textContent += buttonText;
+        floatinput = true;
       }
     } else if (["+", "*", "-", "/"].includes(buttonText)) {
       const cleanContent = display.textContent.trim();
@@ -116,6 +119,7 @@ buttons.forEach((button) => {
       ) {
       } else {
         display.textContent += buttonText;
+        floatinput = false;
       }
     } else if (buttonText === "=") {
       const cleanContent = display.textContent.trim();
